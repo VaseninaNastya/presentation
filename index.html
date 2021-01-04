@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+
+    <title>reveal.js</title>
+    <link rel="stylesheet" href="dist/reset.css" />
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="dist/theme/solarized.css" id="theme" />
+    <!-- Theme used for syntax highlighted code -->
+    <link
+      rel="stylesheet"
+      href="plugin/highlight/monokai.css"
+      id="highlight-theme"
+    />
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section>
+          <h1>React: get start</h1>
+          <span
+            >created by
+            <a href="https://github.com/VaseninaNastya"
+              >Nastya Vasenina</a
+            ></span
+          >
+        </section>
+        <section>
+          <div class="beforeStart">
+            <span>before start:</span>
+            <h2 class="beforeStart_content">
+              React does not separate markup and logic
+            </h2>
+          </div>
+        </section>
+        <section>
+          <h3>Introducing JSX</h3>
+          <span>JSX - it is a syntax extension to JavaScript.</span>
+          <div class="example">
+            <div class="fragment" data-fragment-index="1">
+              <span  class="example_label"> The JSX code: </span>
+              <pre >
+                <code class="example_code" data-line-numbers data-trim>
+                    <h1 className="greeting">
+                      Hello, world
+                    </h1>
+                </code>
+              </pre>
+              <span  class="example_label">compiles into:</span>
+              <pre class="js" >
+              <code class="example_code" data-line-numbers data-trim>
+                React.createElement(
+                  'h1',
+                  {className: 'greeting'},
+                  'Привет, мир!'
+                );
+                </code>
+              </pre>
+            </div>
+            <div class="fragment " data-fragment-index="2">
+              <span class="example_label"> The JSX code: </span>
+              <pre  class="html"  >
+                <code class="example_code" data-line-numbers data-trim>
+                  &lt;div className="sidebar" /&gt;
+                </code>
+              </pre>
+              <span class="example_label" >compiles into:</span>
+              <pre  class="js">
+                <code class="example_code" data-line-numbers data-trim>
+                  React.createElement(
+                    'div',
+                    {className: 'sidebar'}
+                  )
+                  </code>
+              </pre>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h4>
+						The first part of a JSX tag determines the type of the React element.
+          </h4>
+          <ul class="example">
+            <li class="fragment" data-fragment-index="1">
+              <span class="example_label" >Inline types.</span>
+              <span class="example_label" >(See example on the previous slide)</span>
+            </li>
+            <li class="fragment" data-fragment-index="2">
+              <span class="example_label" >Capitalized types.</span>
+              <pre  class="js">
+                <code class="example_code" data-trim data-line-numbers="6|6,2|1-2,6|1-7">
+                  import React from 'react';
+                  import CustomButton from './CustomButton';
+                  
+                  function WarningButton() {
+                    // return React.createElement(CustomButton, {color: 'red'}, null);
+                    return &lt;CustomButton color="red" /&gt;;
+                  }
+                  </code>
+              </pre>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h4 >
+            Rendering Elements
+          </h4>
+          <div class="fragment_css"  class="example">
+            <div >
+              <span class="example_label" >a “root” DOM node </span>
+              <pre class="html">
+                <code class="example_code" data-trim data-line-numbers>
+                  &lt;div id="root"&gt;&lt;/div&gt;
+                  </code>
+              </pre>
+            </div>
+            <div class="fragment" data-fragment-index="2">
+              <span class="example_label">using ReactDOM.render()</span>
+              <pre  class="js">
+                <code class="example_code" data-trim data-line-numbers>
+                  const element = <h1>Hello, world</h1>;
+                  ReactDOM.render(element, document.getElementById('root'));
+                  </code>
+              </pre>
+            </div>
+        </section>
+        <section>
+          <section>
+            <h4>
+              Components and Props
+            </h4>
+            <ul class="example">
+              Types of components:
+              <li class="fragment" data-fragment-index="1">
+                <span class="example_label" >Function components</span>
+                <pre  class="js">
+                  <code class="example_code" data-trim data-line-numbers>
+                    function Welcome(props) {
+                      return <h1>Привет, {props.name}</h1>;
+                    }
+                    </code>
+                </pre>
+              </li>
+              <li class="fragment" data-fragment-index="2">
+                <span class="example_label" >Class components</span>
+                <pre  class="js">
+                  <code class="example_code" data-trim data-line-numbers>
+                    class Welcome extends React.Component {
+                      render() {
+                        return <h1>Привет, {this.props.name}</h1>;
+                      }
+                    }
+                    </code>
+                </pre>
+              </li>
+            </ul>
+          </section>
+          <section data-auto-animate>
+            <h4>
+              Rendering a Component
+            </h4>
+            <pre  class="js fragment">
+              <code class="example_code" data-trim data-line-numbers="4-8|1-4|2|1-9">
+                function Welcome(props) {
+                  return <h1>Привет, {props.name}</h1>;
+                }
+                const element = &lt;Welcome name="Vasya" /&gt;;
+                ReactDOM.render(
+                  element,
+                  document.getElementById('root')
+                );    
+                </code>
+            </pre>
+            <div class="fragment">
+              <h4>Important! Props are Read-Only</h4>
+            </div>
+          </section>
+        </section>
+        <section data-auto-animate>
+          <h5 class="example_code_title__secondary">
+            State and Lifecycle
+          </h5>
+          <pre id="example_code_containers" data-id="code-animation" class="js">
+            <code class="example_code" data-trim data-line-numbers="1-13|2-6">
+              function tick() {
+                const element = (
+                  <div>
+                    <h1>Привет, мир!</h1>
+                    <h2>Сейчас {new Date().toLocaleTimeString()}.</h2>
+                  </div>
+                );
+                ReactDOM.render(
+                  element,
+                  document.getElementById('root')
+                );
+              }
+              setInterval(tick, 1000); 
+              </code>
+          </pre>
+        </section>
+        <section data-auto-animate>
+          <h5 class="example_code_title__secondary">
+            Select &lt;Clock&gt; into a separate component
+          </h5>
+          <pre id="example_code_containers" data-id="code-animation" class="js">
+            <code class="example_code" data-trim data-line-numbers="1-8,11">
+              function Clock(props) {
+                return (
+                  <div>
+                    <h1>Привет, мир!</h1>
+                    <h2>Сейчас {props.date.toLocaleTimeString()}.</h2>
+                  </div>
+                );
+              }
+              function tick() {
+                ReactDOM.render(
+                  &lt;Clock date={new Date()} /&gt;,
+                  document.getElementById('root')
+                );
+              }
+              setInterval(tick, 1000);
+            </code>
+          </pre>
+        </section>
+        <section data-auto-animate>
+          <h5 class="example_code_title__secondary">
+            Converting a Function to a Class
+          </h5>
+          <pre id="example_code_containers" data-id="code-animation" class="js">
+            <code class="example_code" data-trim data-line-numbers="1|2|3-8|6|1-10">
+              class Clock extends React.Component {
+                render() {
+                  return (
+                    <div>
+                      <h1>Hello, world!</h1>
+                      <h2>It is {this.props.date.toLocaleTimeString()}.</h2>
+                    </div>
+                  );
+                }
+              }
+              function tick() {
+                ReactDOM.render(
+                  &lt;Clock date={new Date()} /&gt;,
+                  document.getElementById('root')
+                );
+              }
+              setInterval(tick, 1000);
+              </code>
+          </pre>
+        </section>
+        <section data-auto-animate>
+          <h5 class="example_code_title__secondary">
+            Adding Local State to a Class
+          </h5>
+          <pre id="example_code_containers" data-id="code-animation" class="js">
+            <code class="example_code" data-trim data-line-numbers="10|4|3|16|1-18">
+              class Clock extends React.Component {
+                constructor(props) {
+                  super(props);
+                  this.state = {date: new Date()};
+                }
+                render() {
+                  return (
+                    <div>
+                      <h1>Привет, мир!</h1>
+                      <h2>Сейчас {this.state.date.toLocaleTimeString()}.</h2>
+                    </div>
+                  );
+                }
+              }
+              ReactDOM.render(
+                &lt;Clock /&gt;,
+                document.getElementById('root')
+              );
+              </code>
+          </pre>
+        </section>
+        <section data-auto-animate>
+          <h5 class="example_code_title__secondary">
+            Adding Lifecycle Methods to a Class
+          </h5>
+          <pre id="example_code_containers" data-id="code-animation" class="js">
+            <code class="example_code" data-trim data-line-numbers="1-18|6-9">
+              class Clock extends React.Component {
+                constructor(props) {
+                  super(props);
+                  this.state = {date: new Date()};
+                }
+                componentDidMount() {
+                }
+                componentWillUnmount() {
+                }
+                render() {
+                  return (
+                    <div>
+                      <h1>Hello, world!</h1>
+                      <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
+                    </div>
+                  );
+                }
+              }
+              </code>
+          </pre>
+        </section>
+        <section>
+          <h5 class="example_code_title__secondary">
+            lifecycle methods
+          </h5>
+          <div class="fragment " data-fragment-index="1">
+            <span  class="example_label">componentDidMount()</span>
+            <pre class="js" >
+            <code class="example_code" data-line-numbers data-trim>
+              componentDidMount() {
+                this.timerID = setInterval(
+                  () => this.tick(),
+                  1000
+                );
+              }
+              </code>
+            </pre>
+          </div>
+          <div class="fragment " data-fragment-index="2">
+            <span  class="example_label">componentWillUnmount()</span>
+            <pre class="js" >
+            <code class="example_code" data-line-numbers data-trim>
+              componentWillUnmount() {
+                clearInterval(this.timerID);
+              }
+              </code>
+            </pre>
+          </div>
+          <div class="fragment " data-fragment-index="3">
+            <span  class="example_label">tick()</span>
+            <pre class="js" >
+            <code class="example_code" data-line-numbers data-trim>
+              tick() {
+                this.setState({
+                  date: new Date()
+                });
+              }
+              </code>
+            </pre>
+          </div>
+        </section>
+        <section>
+          <h5 class="example_code_title__secondary">Result</h5>
+          <pre class="js result_code">
+            <code data-trim data-line-numbers>
+              class Clock extends React.Component {
+                constructor(props) {
+                  super(props);
+                  this.state = {date: new Date()};
+                }
+                componentDidMount() {
+                  this.timerID = setInterval(
+                    () => this.tick(),
+                    1000
+                  );
+                }
+                componentWillUnmount() {
+                  clearInterval(this.timerID);
+                }
+                tick() {
+                  this.setState({
+                    date: new Date()
+                  });
+                }
+                render() {
+                  return (
+                    <div>
+                      <h1>Hello, world!</h1>
+                      <h2>It is {this.state.date.toLocaleTimeString()}.</h2>
+                    </div>
+                  );
+                }
+              }
+              ReactDOM.render(
+                &lt;Clock /&gt;,
+                document.getElementById('root')
+              );
+              </code>
+          </pre>
+        </section>
+      </div>
+    </div>
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script>
+      // More info about initialization & config:
+      // - https://revealjs.com/initialization/
+      // - https://revealjs.com/config/
+      Reveal.initialize({
+        hash: true,
+
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+      });
+    </script>
+  </body>
+</html>
